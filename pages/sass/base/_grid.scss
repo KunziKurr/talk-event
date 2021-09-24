@@ -1,0 +1,23 @@
+.grid{
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    //grid-template-columns: repeat(4, 20rem);
+    grid-template-columns: 1fr 2fr;
+    grid-row-gap: 3rem;
+    grid-column-gap: 2rem;
+    // grid-gap: 3rem;
+    grid-template-columns: 1fr 1fr 1fr;
+   
+}
+
+.grid-5{
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    //grid-template-columns: repeat(4, 20rem);
+    grid-template-columns: 1fr 2fr;
+    grid-row-gap: 3rem;
+    grid-column-gap: 2rem;
+    // grid-gap: 3rem;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+   
+}

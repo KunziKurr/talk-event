@@ -1,0 +1,67 @@
+.j_section {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    margin-top: -13.8rem;
+    &_wrapper_1 {
+        position: relative;
+        &_span_A {
+            font-size: 28rem;
+            position: absolute;
+            font-weight: 900;
+            color: #fff;
+            left: 30rem;
+            font-family: Montserrat-Bold;
+            top: 11rem;
+        }
+        &_span_I {
+            font-size: 28rem;
+            position: absolute;
+            font-weight: 900;
+            color: #fff;
+            left: 52rem;
+            font-family: Montserrat-Bold;
+            top: 10rem;
+        }
+        &_span_R {
+            font-size: 28rem;
+            position: absolute;
+            font-weight: 900;
+            color: #fff;
+            left: 69rem;
+            font-family: Montserrat-Bold;
+            top: 10rem;
+            
+        }
+        &_img {
+            position: absolute;
+            height: 57vh;
+            top: 13.1rem;
+            left: 14rem;
+            filter: blur(0.7rem);
+            transform: rotate(-13deg);
+        }
+    }
+    &_wrapper {
+        &_img {
+            position: absolute;
+            height: 125vh;
+            top: -6.9rem;
+            right: 1rem;
+            width: 65vw;
+        }
+    }
+    &_end {
+        // background-image: url('../../static/media/room.25228bd6.png');
+        height: 87.2vh;
+        width: 34.1vw;
+        position: absolute;
+        right: 0;
+        top: 5.6rem;
+        border-top-right-radius: 2rem;
+        border-bottom-right-radius: 2rem;
+        background-size: 100% 100%;
+        z-index: -1;
+        background-repeat: no-repeat
+    }
+}

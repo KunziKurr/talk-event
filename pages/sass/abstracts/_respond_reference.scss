@@ -1,0 +1,24 @@
+
+body {
+
+
+    @include respond-below(xs) {
+        background-color: gray;
+    }
+
+    @include respond-between(xs, sm ) {
+        background-color: blue;
+    }   
+    @include respond-between(sm,md) {
+        background-color: yellow;
+    }
+
+    @include respond-between(md,lg ) {
+        background-color: purple;
+    }
+    @include respond-above(lg) {
+        background-color: black;
+    }
+
+
+}
