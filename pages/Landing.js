@@ -6,8 +6,12 @@ export default function Landing() {
     <div>
         <div className="landing">
             <section className="landing_seaction_1">
-                    <h1 className="landing_seaction_1_title">The crystal caves.</h1>
-                    <span className="landing_seaction_1_span"> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s </span>
+                    <h1 className="landing_seaction_1_title">Cleaning Time !!</h1>
+                    <span className="landing_seaction_1_span"> 
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s </span>
+                    <div className="landing_seaction_1_sub_sect"> 
+                    </div>
             </section>
             <section className="landing_section_2">
                 sectin 1
