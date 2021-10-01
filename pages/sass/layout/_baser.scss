@@ -21,11 +21,15 @@
                 text-transform:uppercase;
             }
             &_span{
-                color:#fff;
-                position:absolute;
-                bottom:5rem;
-                font-size:1.4rem;
-                width:50%;
+                color: #fff;
+                position: absolute;
+                bottom: unset;
+                font-size: 1.4rem;
+                width: 40%;
+                top: 34rem;
+                margin: 0 auto;
+                left: -56%;
+                right: 0;
             }
             &_sub_sect{
                 height: 100%;
@@ -87,9 +91,40 @@
                 }
             }
         }
-        &_2 {
-            background-color: #fff;
-        }
+       
 
+    }
+    &_section_2 {
+        background-color: #fff;
+        padding:4rem 2rem;
+        width:100vw;
+        &_wrapper_1{
+            width:17vw;
+            display:inline-block;
+            margin:0rem 3rem;
+            &_heading{
+                font-size:2rem;
+                font-family: 'Montserrat-Bold';
+                margin:.5rem 0;
+                
+            }
+            &_p{
+                font-size:1.2rem;
+                text-align:justify;
+                position:unset;
+                bottom:8rem;
+                width:100%;
+                & h1{
+                    font-size:3.5rem;
+                    width:max-content;
+                }
+                
+            }
+            button{
+                position: absolute;
+                right: 10rem;
+                bottom: 1rem;
+            }
+        }
     }
 }
