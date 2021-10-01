@@ -12,7 +12,7 @@ export default function Landing() {
                     <h1 className="landing_seaction_1_title">Cleaning Time !!</h1>
                     <span className="landing_seaction_1_span"> 
                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
-                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s </span>
+                    Lorem Ipsum has been the industrys standard dummy text ever since the 1500s </span>
                     <div className="landing_seaction_1_sub_sect"> 
                       <div className="landing_seaction_1_sub_sect_wrapper">
                       <span className="landing_seaction_1_sub_sect_heading"> How clean is your home ?</span>
