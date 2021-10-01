@@ -6,7 +6,9 @@ export default function Landing() {
     <div>
         <div className="landing">
             <section className="landing_seaction_1">
-           
+            {/* <video autoPlay muted loop className="V">
+              <source src="../assets/video/Vid1.mp4" type="video/mp4"/>
+            </video> */}
                     <h1 className="landing_seaction_1_title">Cleaning Time !!</h1>
                     <span className="landing_seaction_1_span"> 
                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. 

@@ -6,7 +6,7 @@
         &_1 {
             height: 80vh;
             background-image: linear-gradient(#000000e3, #000000cc), url('../assets/mike.jpeg');
-            background-position: center;
+            background-position: left;
             background-size: contain;
             position:relative;
             &_title {
@@ -16,8 +16,8 @@
                 width: 40%;
                 line-height: 7rem;
                 position: absolute;
-                top: 16%;
-                left: 6rem;
+                top: 12%;
+                left: 3rem;
                 text-transform:uppercase;
             }
             &_span{
@@ -58,6 +58,7 @@
                     color: #fff;
                     font-size: 1.7rem;
                     font-family: 'Montserrat-Regular';
+                    margin: 1rem 0;
                 }
                 &_b_text{
                     font-family: 'Montserrat-bold';
