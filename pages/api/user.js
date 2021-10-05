@@ -23,5 +23,22 @@ export default async function handler(req, res) {
         success: false,
       });
     }
+  } else if (req.method === 'GET') {
+    try {
+      // connect to the database
+      const { db } = await connectToDatabase();
+      // add the callback
+      const users = await db.collection('mpesa_callback').find({}).toArray();
+      // return a message
+      return res.json({
+        data: users,
+        success: true,
+      });
+    } catch (error) {
+      return res.json({
+        message: new Error(error).message,
+        success: false,
+      });
+    }
   }
 }
