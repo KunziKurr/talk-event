@@ -13,7 +13,7 @@ export default async function handler(req, res) {
     await db.collection('mpesa_callback').insertOne(insertData);
     // return a message
     return res.json({
-      message: 'Post added successfully',
+      message: 'Success',
       success: true,
     });
   } catch (error) {
