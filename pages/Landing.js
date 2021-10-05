@@ -1,6 +1,8 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import { useState,useRef, useEffect } from "react";
+import Formpopup from './FormPopup';
+import useHook from './hook';
 
 function Countet() {
     const countDownDate = new Date("Oct 1, 2021 15:37:25").getTime();
@@ -47,13 +49,11 @@ function Countet() {
 }
 
 export default function Landing() {
-
-
-      // console.log(Timer)
-      // return Timer;
+  const {handleClick,isActive, setActive} = useHook();
+     
   return (
     <div>
-        <div className="landing">
+        <div className="landing" >
             <section className="landing_seaction_1">
             {/* <video autoPlay muted loop className="V">
               <source src="../assets/video/Vid1.mp4" type="video/mp4"/>
@@ -70,11 +70,12 @@ export default function Landing() {
                           Manager to transform and sparkle up your space like pro ? </p>
                         <span className="landing_seaction_1_sub_sect_b_text"> For only 300/- Join us on the 15th Oct From 9:30 am from transformative session </span>
                         <span className="landing_seaction_1_sub_sect_footer_text"> Get Value for you money... </span>
-                        <button className="landing_seaction_1_sub_sect_register"> REGISTER NOW</button>
+                        <button className="landing_seaction_1_sub_sect_register" onClick={handleClick}> REGISTER NOW</button>
                       </div>
                     </div>
             </section>
-            <section className="landing_section_2">
+            <section className= "landing_section_2">
+              <div className={isActive ? "hidden" : "active"}></div>
 
             <div className="landing_section_2_wrapper_1">
             <span className="landing_section_2_wrapper_1_heading"> About Event </span>
@@ -95,7 +96,7 @@ export default function Landing() {
               <p className="landing_section_2_wrapper_1_p">  
             <Countet />
             </p>
-               <button className="landing_seaction_1_sub_sect_register"> BOOK NOW</button>
+               <button className="landing_seaction_1_sub_sect_register" onClick={handleClick}> BOOK NOW</button>
           
             </div> 
             
@@ -103,6 +104,8 @@ export default function Landing() {
                
             </section>
         </div>
+        <Formpopup />/
     </div>
+    
   )
 }
