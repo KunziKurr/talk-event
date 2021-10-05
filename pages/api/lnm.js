@@ -18,7 +18,7 @@ export default async function handler(req, res) {
       PartyA: phoneNumber,
       PartyB: +shortCode,
       PhoneNumber: phoneNumber,
-      CallBackURL: 'https://mydomain.com/path',
+      CallBackURL: process.env.CALLBACK_URL,
       AccountReference: 'MarcosTest',
       TransactionDesc: 'Payment of Cleaning Event',
     };
