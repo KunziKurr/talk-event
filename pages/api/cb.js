@@ -3,7 +3,6 @@ const { connectToDatabase } = require('../../lib/mongodb');
 const ObjectId = require('mongodb').ObjectId;
 
 export default async function handler(req, res) {
-  console.log('callback received', req.body);
   try {
     // connect to the database
     let { db } = await connectToDatabase();
@@ -18,7 +17,6 @@ export default async function handler(req, res) {
       success: true,
     });
   } catch (error) {
-    console.log(error);
     return res.json({
       message: new Error(error).message,
       success: false,
