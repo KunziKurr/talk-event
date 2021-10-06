@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { useState,useRef, useEffect } from "react";
 // import Formpopup from './FormPopup';
-import useHook from './hook';
+// import useHook from './hook';
 
 function Countet() {
     const countDownDate = new Date("Oct 1, 2021 15:37:25").getTime();
@@ -49,8 +49,17 @@ function Countet() {
 }
 
 export default function Landing() {
-  const {handleClick,isActive, setActive ,handleFormClick,hiddenClass, setActiveClass} = useHook();
-  let linker = "hidden";
+
+   const [isActive, setActive] = useState(false);
+     const handleClick = () =>{
+        setActive(!isActive);
+      }
+      const [hiddenClass, setActiveClass] = useState(false);
+      const handleFormClick = (e) =>{
+         setActiveClass(!hiddenClass);
+        console.log("Form Handled");
+        e.preventDefault();
+      }
   return (
     <div>
         <div className="landing" >
