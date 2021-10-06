@@ -1,11 +1,18 @@
 import { useState,useRef } from "react";
 
-const useHook = (handleClick) =>{
-    const [isActive, setActive] = useState("hidden");
+const useHook = (handleClick, handleFormClick) =>{
+    const [isActive, setActive] = useState(false);
      handleClick = () =>{
         setActive(!isActive);
-        console.log('Button Clickd');
+
+        console.log(isActive);
       }
-return {handleClick, isActive, setActive}
+      const [hiddenClass, setActiveClass] = useState(false);
+      handleFormClick = (e) =>{
+         setActiveClass(!hiddenClass);
+        console.log("Form Handled");
+        e.preventDefault();
+      }
+return {handleClick, isActive, setActive, handleFormClick,hiddenClass, setActiveClass }
 }
 export default useHook;
