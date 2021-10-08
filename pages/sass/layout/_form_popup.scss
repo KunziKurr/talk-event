@@ -1,0 +1,189 @@
+.form_popup{
+    position: fixed;
+
+    height: 100vh;
+    width: 100vw;
+    background-color: #141613eb;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    &_container{
+        position: fixed;
+        background-color: #fff;
+        width: 60vw;
+        height: 41vw;
+        margin: 0 auto;
+        left: 50%;
+        right: 0;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 4rem;
+        &_wrapper{
+            &_side_1{
+                background-image: url('../assets/curver.svg');
+                height: 88vh;
+                width: 57%;
+                background-size: 100%;
+                background-repeat: no-repeat;
+                position: absolute;
+                background-position: -1rem -1rem;
+                z-index: -1000;
+                border-radius: 4rem;
+            }
+            &_side_2{
+                width: 59%;
+                float: right;
+                height: 88vh;
+                border-top-right-radius: 4rem;
+                border-bottom-right-radius: 4rem;
+                &_hello{
+                    display: block;
+                    margin: 1rem 8rem;
+                    font-size: 1.7rem;
+                    font-family: 'Montserrat-Regular';
+                    color: #1d89bd;
+                    font-weight: 700;
+                    &1{
+                        display: block;
+                        margin: 1rem 8rem;
+                        font-size: 1.7rem;
+                        font-family: 'Montserrat-Regular';
+                        color:#1d89bd;
+                        font-weight: 700;
+                    }
+                
+                }
+                &_form{
+                    position: relative;
+                    margin: 5rem 3.6rem;
+                    width: 100%;
+                }
+                &_label{
+                    position: absolute;
+                    margin: -0.3rem 1.5rem;
+                    font-size: 1.2rem;
+                    font-weight: 600;
+                    font-family: 'Montserrat-Regular';
+                    color:#1d89bd;
+                }
+                &_input, &_select{
+                    width: 40%;
+                    margin: 2rem 1rem;
+                    border-radius: 2rem;
+                    border: 1.7px solid #1d89bd;
+                    padding: 0.75rem 1rem;
+                    background-color: #fff  ;
+                    outline: none;
+                    color:#1d89bd;
+                    font-size: 1.1rem;
+
+                }
+                  
+                
+                & .first{
+                    margin-left: -1.3rem;
+                }
+                & label.first{
+                    margin-left: -1rem;
+                }
+                & .last{
+                    margin-left: 4rem;
+                    width: 50%;
+                }
+                & label.last{
+                    margin: -0.3rem 4.3rem;
+                }
+                &_select{
+                    width: 43%;
+                    margin: 2rem 1rem;
+                }
+                &_btn{
+                    display: block;
+                    margin-left: 3rem;
+                    width: 79%;
+                    border: navajowhite;
+                    background-color: #1d89bd;
+                    padding: 1.2rem;
+                    border-radius: 3rem;
+                    color: #fff;
+                    font-family: 'Montserrat-Regular';
+                    outline: none;
+                    font-size: 1.2rem;
+                    position: relative;
+                    top: 1rem;  
+                }
+               
+            }
+            &_footer{
+                color: #79797a;
+                width: 75%;
+                margin-left: 7rem;
+            }
+            &_sub{
+                position: fixed;
+                height: 88vh;
+                width: 100%;
+                left: 50%;
+                right: 0;
+                margin: 0 auto;
+                -webkit-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+                top: 50%;
+                border-radius: 2rem;
+                border: 1px solid #140e0e;
+                background-color: #081921bd;
+                &_wrapper{
+                    width: 69%;
+                    background-color: #f0e7e7;
+                    position: absolute;
+                    left: 50%;
+                    right: 0;
+                    margin: 0 auto;
+                    top: 45%;
+                    transform: translate(-50%,-50%);
+                    height: 46vh;
+                    border-radius: 1rem;
+                    &_h1{
+                        text-align: center;
+                        margin-top: 1rem;
+                        font-family: 'Montserrat-Bold';
+                        font-size: 1.4rem;
+                        color:#1d89bd;
+                    }
+                    &_span{
+                        width: 75%;
+                        text-align: center;
+                        margin: 1.6rem auto;
+                    }
+                    & .form_popup_container_wrapper_side_2_label{
+                        position: absolute;
+                        left: 10rem;
+                        margin-top: 0.4rem;
+                    }
+                    & .form_popup_container_wrapper_side_2_input{
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        width: 60%;
+                        margin: 3rem auto;
+                    }
+                    & .form_popup_container_wrapper_side_2_btn{
+                        position: absolute;
+                        top: 19rem;
+                        left: 0;
+                        right: 0;
+                        margin: 0 auto;
+                    }
+                }
+            }
+        }
+    }
+}
+#hidden{
+    display: none;
+    &_inn{
+        display: none;
+    }
+}

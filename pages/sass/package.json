@@ -9,15 +9,16 @@
         "clean-css-cli": "^4.3.0",
         "node-sass": "^4.11.0",
         "postcss": "^7.0.14",
-        "postcss-cli": "^6.1.2"
+        "postcss-cli": "^6.1.2",
+        "sass": "^1.42.1"
     },
-    "devDependencies": {},
     "scripts": {
         "clean": "rimraf scss",
         "compile": "node-sass --output-style=expanded --source-map=true master.scss build/master.css",
         "prefix": "postcss build/master.css --use=autoprefixer --map=false --output=build/master.css",
         "minify": "cleancss --level=1 --source-map --source-map-inline-sources --output build/master.css build/master.css",
-        "build": "yarn run clean && yarn run compile && yarn run prefix && yarn run minify  && mv build/master.css ../../styles/master.css"
+        "build": "yarn run clean && yarn run compile && yarn run prefix && yarn run minify  && mv build/master.css ../../styles/master.css",
+        "style":"sass master.scss  ../../styles/master.css --style=compressed -w"
     },
     "browserslist": [
         "last 10 version",
