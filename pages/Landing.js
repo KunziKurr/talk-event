@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import { useState,useRef, useEffect } from "react";
+import {useForm} from 'react-hook-form'; ``
 // import Formpopup from './FormPopup';
 // import useHook from './hook';
 
@@ -49,17 +50,46 @@ function Countet() {
 }
 
 export default function Landing() {
-
-   const [isActive, setActive] = useState(false);
+    // POPUP BOXES HIDE/SHOW
+    const [isActive, setActive] = useState(false);
      const handleClick = () =>{
         setActive(!isActive);
       }
       const [hiddenClass, setActiveClass] = useState(false);
+    
+      // POPUP BOXES HIDE/SHOW
+      //FORM HANDLING
+
       const handleFormClick = (e) =>{
          setActiveClass(!hiddenClass);
         console.log("Form Handled");
         e.preventDefault();
       }
+      
+      
+          const [formData, setFormData] = useState({
+              firstName: "",
+              lastName: "",
+              email: "",
+              phone_number: ""
+            });
+
+            const updateFormData = event =>
+              setFormData({
+                ...formData,
+                [event.target.name]: event.target.value
+              });
+
+          const { firstName, lastName, email, password } = formData;
+            console.log(formData.firstName.length < 5);
+            if (formData.firstName.length < 5) {
+                console.log('Firsname should be more that 5 chars');
+            }
+          console.log(formData);
+          
+       
+          
+      // POPUP BOXES HIDE/SHOW
   return (
     <div>
         <div className="landing" >
@@ -96,7 +126,7 @@ export default function Landing() {
             <span className="landing_section_2_wrapper_1_heading"> Where ? </span>
             <p className="landing_section_2_wrapper_1_p">  
              Would you give us a chance to train YOU and/or YOUR Domestic 
-                          Manager to transform and sparkle up your space like pro ?500s
+              Manager to transform and sparkle up your space like pro ?500s
             </p>
             </div> 
               <div className="landing_section_2_wrapper_1">
@@ -127,24 +157,49 @@ export default function Landing() {
                             </span>
                             <form className="form_popup_container_wrapper_side_2_form" >
                                 <label className="form_popup_container_wrapper_side_2_label fidst">Firstname</label>
-                                <input type="text" placeholder="Enter Firstname..." name="fullname" className="form_popup_container_wrapper_side_2_input fdirst" />
+                                {/* {firstNameRrr} */}
+                                <input 
+                                  type="text"  
+                                  onChange={e => updateFormData(e)}
+                                  placeholder="Enter Firstname..." 
+                                  name="firstName"
+                                  className="form_popup_container_wrapper_side_2_input fdirst" 
+                                />
 
                                 <label className="form_popup_container_wrapper_side_2_label">Lastname</label>
-                                <input type="text" placeholder="Enter Lastname..." name="fullname" className="form_popup_container_wrapper_side_2_input" />
+                                <input 
+                                  type="text"  
+                                  onChange={e => updateFormData(e)}  
+                                  placeholder="Enter Lastname..." 
+                                  name="lastName" 
+                                  className="form_popup_container_wrapper_side_2_input" 
+                                />
                                 <br></br>
                                 <label className="form_popup_container_wrapper_side_2_label">Email Adress</label>
-                                <input type="email" placeholder="Enter Email address..." name="fullname" className="form_popup_container_wrapper_side_2_input" />
+                                <input 
+                                  type="email"  
+                                  onChange={e => updateFormData(e)}
+                                  placeholder="Enter Email address..." 
+                                  name="email" 
+                                  className="form_popup_container_wrapper_side_2_input" 
+                                />
 
                                 <label className="form_popup_container_wrapper_side_2_label">Gender</label>
                                 <select className="form_popup_container_wrapper_side_2_select">
                                     <option value>Gender</option>
-                                    <option value="male">Male</option>
+                                    <option value="">Male</option>
                                     <option value="female">Female</option>
                                 </select>
                                 <br></br>
                                 <label className="form_popup_container_wrapper_side_2_label ladst">Phone Number</label>
-                                <input type="text" placeholder="07xxxxxxx" name="phone_number" className="form_popup_container_wrapper_side_2_input ladst" />
-                                <button className="form_popup_container_wrapper_side_2_btn" onClick={handleFormClick}> Register / Book </button>
+                                <input 
+                                  type="text"  
+                                  onChange={e => updateFormData(e)}  
+                                  placeholder="07xxxxxxx" 
+                                  name="phone_number" 
+                                  className="form_popup_container_wrapper_side_2_input ladst" 
+                                />
+                                <button className="form_popup_container_wrapper_side_2_btn"> Register / Book </button>
                                 
                             </form>
                             <div className="form_popup_container_wrapper_footer">
