@@ -1,9 +1,12 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import { useState,useRef, useEffect } from "react";
-import {useForm} from 'react-hook-form'; ``
-// import Formpopup from './FormPopup';
-// import useHook from './hook';
+import {useFormik} from 'formik'
+import axios from 'axios'
+
+const baseURL = "./api/user/";
+
+
 
 function Countet() {
     const countDownDate = new Date("Oct 1, 2021 15:37:25").getTime();
@@ -52,6 +55,7 @@ function Countet() {
 export default function Landing() {
     // POPUP BOXES HIDE/SHOW
     const [isActive, setActive] = useState(false);
+    const [erros, setErrors] = useState({});
      const handleClick = () =>{
         setActive(!isActive);
       }
@@ -63,30 +67,101 @@ export default function Landing() {
       const handleFormClick = (e) =>{
          setActiveClass(!hiddenClass);
         console.log("Form Handled");
-        e.preventDefault();
+        e.preventDefault(); 
       }
       
-      
+
           const [formData, setFormData] = useState({
               firstName: "",
               lastName: "",
               email: "",
               phone_number: ""
             });
+            // const handleBlur = evt =>{
+            //   const {name, value} =evt.target;
+            // }
 
             const updateFormData = event =>
               setFormData({
                 ...formData,
                 [event.target.name]: event.target.value
               });
+              //FORM VALIDATION
+              const validate = values =>{
+                const errors = {}
+                //FIRSTNAME VALIDATION
+                if (!values.firstName) {
+                  errors.firstName = "Firstname is required"
+                }else if (values.firstName.length < 4) {
+                  errors.firstName = "Must me more than 4chars"
+                }
+                // LAST NAME VALIDATION
+                if (!values.lastName) {
+                  errors.lastName = "Lastname is required"
+                }else if (values.lastName.length < 4) {
+                  errors.lastName  = "Must me more than 4chars"
+                }
+                // EMAIL VALIDATION
+                if (!values.email) {
+                  errors.email = "Email is required"
+                }else if (values.email.length < 4) {
+                  errors.email  = "Email Must me more than 4chars"
+                }
+                // PHONE NUMBER
+                  // EMAIL VALIDATION
+                  if (!values.phone_number) {
+                    errors.phone_number = "Phone Number is required"
+                  }else if (values.email.length < 4) {
+                    errors.phone_number  = "Phone Number Must me more than 4chars"
+                  }
+                return errors
+              }
+              const [post, setPost] = useState(null);
 
-          const { firstName, lastName, email, password } = formData;
-            console.log(formData.firstName.length < 5);
-            if (formData.firstName.length < 5) {
-                console.log('Firsname should be more that 5 chars');
-            }
-          console.log(formData);
-          
+              
+              const formik = useFormik({
+                initialValues:{
+                  firstName:'',
+                  lastName:'',
+                  email:'',
+                  phone_number:''
+                },
+                validate,
+                onSubmit: values => {
+                  console.log(JSON.stringify(values, null, 2));
+                  console.log(values)
+                  setActiveClass(!hiddenClass);
+
+                  axios
+                  .post('url/here/', values)
+                  .then(response => {
+                    console.log(response);
+                  })
+                  .catch(error =>{
+                    console.log(error)
+                  })
+                },
+              //  pushStk: e =>{
+              //    e.preventDefault();
+              //    console.log(values);
+              //  }
+              });
+
+            
+
+          const { firstName, lastName, email, password, phone_number } = formData;
+          const  pushStk= (e) =>{
+            e.preventDefault();
+            axios
+              .post('url/here/', formik.phone_number)
+              .then(response => {
+                console.log(response);
+              })
+              .catch(error =>{
+                console.log(error)
+              })
+          }
+     
        
           
       // POPUP BOXES HIDE/SHOW
@@ -155,50 +230,71 @@ export default function Landing() {
                         <span className="form_popup_container_wrapper_side_2_hello1">
                             We are glad to see you :)
                             </span>
-                            <form className="form_popup_container_wrapper_side_2_form" >
-                                <label className="form_popup_container_wrapper_side_2_label fidst">Firstname</label>
-                                {/* {firstNameRrr} */}
-                                <input 
-                                  type="text"  
-                                  onChange={e => updateFormData(e)}
-                                  placeholder="Enter Firstname..." 
-                                  name="firstName"
-                                  className="form_popup_container_wrapper_side_2_input fdirst" 
-                                />
-
+                            <form className="form_popup_container_wrapper_side_2_form" onSubmit={formik.handleSubmit} >
+                               <div className="form_popup_container_wrapper_side_2_form_form_container">
+                                  <label className="form_popup_container_wrapper_side_2_label fidst">Firstname</label>
+                                  {/* {firstNameRrr} */}
+                                  <input 
+                                    type="text"  
+                                    onChange={formik.handleChange}
+                                    value={formik.values.firstName}
+                                    onBlur ={formik.handleBlur}
+                                    placeholder="Enter Firstname..." 
+                                    name="firstName"
+                                    className="form_popup_container_wrapper_side_2_input fdirst" 
+                                  />
+                                  {formik.errors.firstName ? <div className="form_error"> {formik.errors.firstName}</div> : null}
+                               </div>
+                               <div className="form_popup_container_wrapper_side_2_form_form_container">
+                    
                                 <label className="form_popup_container_wrapper_side_2_label">Lastname</label>
                                 <input 
                                   type="text"  
-                                  onChange={e => updateFormData(e)}  
+                                  onChange={formik.handleChange}
+                                  onBlur ={formik.handleBlur}
+                                  value={formik.values.lastName} 
                                   placeholder="Enter Lastname..." 
                                   name="lastName" 
                                   className="form_popup_container_wrapper_side_2_input" 
                                 />
+                                {formik.errors.lastName ? <div className="form_error"> {formik.errors.lastName}</div> : null}
+                                </div>
                                 <br></br>
+                               <div className="form_popup_container_wrapper_side_2_form_form_container">
                                 <label className="form_popup_container_wrapper_side_2_label">Email Adress</label>
                                 <input 
                                   type="email"  
-                                  onChange={e => updateFormData(e)}
+                                  onChange={formik.handleChange}
+                                  value={formik.values.email}
+                                  onBlur ={formik.handleBlur}
                                   placeholder="Enter Email address..." 
                                   name="email" 
                                   className="form_popup_container_wrapper_side_2_input" 
                                 />
-
+                                {formik.errors.email ? <div className="form_error"> {formik.errors.email}</div> : null}
+                                </div>
+                               <div className="form_popup_container_wrapper_side_2_form_form_container">
                                 <label className="form_popup_container_wrapper_side_2_label">Gender</label>
                                 <select className="form_popup_container_wrapper_side_2_select">
                                     <option value>Gender</option>
                                     <option value="">Male</option>
                                     <option value="female">Female</option>
                                 </select>
+                                </div>
                                 <br></br>
+                               <div className="form_popup_container_wrapper_side_2_form_form_container">
                                 <label className="form_popup_container_wrapper_side_2_label ladst">Phone Number</label>
                                 <input 
-                                  type="text"  
-                                  onChange={e => updateFormData(e)}  
+                                  type="text"
+                                  onChange={formik.handleChange}
+                                  value={formik.values.phone_number}
+                                  onBlur ={formik.handleBlur}
                                   placeholder="07xxxxxxx" 
                                   name="phone_number" 
                                   className="form_popup_container_wrapper_side_2_input ladst" 
                                 />
+                                {formik.errors.phone_number ? <div className="form_error"> {formik.errors.phone_number}</div> : null}
+                                </div>
                                 <button className="form_popup_container_wrapper_side_2_btn"> Register / Book </button>
                                 
                             </form>
@@ -217,8 +313,16 @@ export default function Landing() {
                                     </p>
                                     <form>
                                     <label className="form_popup_container_wrapper_side_2_label ladst">Phone Number</label>
-                                <input type="text" placeholder="07xxxxxxx" name="phone_number" className="form_popup_container_wrapper_side_2_input ladst" />
-                                <button className="form_popup_container_wrapper_side_2_btn"> Register / Book </button>
+                                <input 
+                                type="text"
+                                onChange={formik.handleChange}
+                                value={formik.values.phone_number}
+                                placeholder="07xxxxxxx" 
+                                name="phone_number" 
+                                className="form_popup_container_wrapper_side_2_input ladst" 
+                                />
+                                {formik.errors.phone_number ? <div className="form_error_no"> {formik.errors.phone_number}</div> : null}
+                                <button onClick={pushStk} className="form_popup_container_wrapper_side_2_btn"> Register / Book </button>
                                         
                                     </form>
                                 </div>
