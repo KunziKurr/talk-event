@@ -59,6 +59,11 @@
                     position: relative;
                     margin: 5rem 3.6rem;
                     width: 100%;
+                    &_form_container{
+                        position: relative;
+                        display: inline-block;
+                        width: 40%;
+                    }
                 }
                 &_label{
                     position: absolute;
@@ -69,7 +74,7 @@
                     color:#1d89bd;
                 }
                 &_input, &_select{
-                    width: 40%;
+                    width: 95%;
                     margin: 2rem 1rem;
                     border-radius: 2rem;
                     border: 1.7px solid #1d89bd;
@@ -96,7 +101,7 @@
                     margin: -0.3rem 4.3rem;
                 }
                 &_select{
-                    width: 43%;
+                    width: 95%;
                     margin: 2rem 1rem;
                 }
                 &_btn{
