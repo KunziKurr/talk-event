@@ -8,7 +8,7 @@ export default async function handler(req, res) {
       // connect to the database
       let { db } = await connectToDatabase();
 
-      const insertData = req.body.Body;
+      const insertData = req.body;
       insertData['_id'] = format(new Date(), 'yyyyMMddHHmmss');
       // add the callback
       await db.collection('users').insertOne(insertData);

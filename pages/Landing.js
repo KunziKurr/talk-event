@@ -130,7 +130,6 @@ export default function Landing() {
       lastName: '',
       email: '',
       phone_number: '',
-      payment_status: 'pending',
     },
     validate,
     onSubmit: (values) => {
@@ -156,8 +155,21 @@ export default function Landing() {
         // Listen to callback
         socket.on(
           transformPhoneNumber(formik.values.phone_number),
-          (message) => {
-            console.log(message);
+          async (data) => {
+            console.log(data);
+            const registerResponse = await axios.post('/api/user', {
+              ...formik.values,
+              phone_number: transformPhoneNumber(formik.values.phone_number),
+              transactionReceipt: data.receiptNumber[0].Value,
+            });
+
+            const respData = registerResponse.data;
+            setBtnText('Make Payment');
+            if (respData.success) {
+              // Notify client of success and close the modal;
+            } else {
+              // Notify client of failure and ask them to retry
+            }
           }
         );
 
