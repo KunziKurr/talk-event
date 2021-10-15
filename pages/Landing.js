@@ -5,7 +5,7 @@ import { useFormik } from 'formik';
 import axios from 'axios';
 
 const io = require('socket.io-client');
-const socket = io.connect('https://talk-event.vercel.app/');
+const socket = io.connect('http://localhost:3000');
 const transformPhoneNumber = require('../lib/transformPhone');
 
 const baseURL = './api/user/';
@@ -151,6 +151,7 @@ export default function Landing() {
     try {
       const response = await axios.post('/api/lnm', {
         phone: transformPhoneNumber(formik.values.phone_number),
+        email: formik.values.email,
       });
       if (response.status === 200) {
         socket.on('CONNECTION_STATUS', (message) => {
@@ -185,21 +186,19 @@ export default function Landing() {
       } else {
         console.log(response);
       }
-    } catch (error) {
-      ;
-    }
+    } catch (error) {}
   };
-  const handleClose = (e) =>{
+  const handleClose = (e) => {
     e.preventDefault();
     setActiveClass(!hiddenClass);
     setActive(!isActive);
     setSpinner('hidden');
-  }
-  
+  };
 
   // POPUP BOXES HIDE/SHOW
   return (
     <div>
+      <ToastContainer />
       <div className="landing">
         <section
           className={`landing_seaction_1 ${isActive ? 'danger' : 'hidden'}`}
@@ -278,11 +277,17 @@ export default function Landing() {
           </div>
         </section>
       </div>
-      <button onClick={handleClose} id={isActive ? 'danger' : 'hidden'} className="close">X</button>
+      <button
+        onClick={handleClose}
+        id={isActive ? 'danger' : 'hidden'}
+        className="close"
+      >
+        X
+      </button>
       <div className="loading_container" id={hideSpinner}>
         <div className="loading_container_wrapper">
           <span>Loading</span>
-        <div className="loader">Loading ...</div>
+          <div className="loader">Loading ...</div>
         </div>
       </div>
       <div className="form_popup " id={isActive ? 'danger' : 'hidden'}>
@@ -393,7 +398,6 @@ export default function Landing() {
                 Would you give us a chance to train YOU and/or YOUR Domestic
                 Manager to transform and sparkle up your space like pro ?
               </div>
-              
 
               <div
                 className="form_popup_container_wrapper_sub"
@@ -438,17 +442,13 @@ export default function Landing() {
                   </form>
                 </div>
               </div>
-            
             </div>
-            
           </div>
         </div>
       </div>
       <div className="success_dialog" id={hideSucess}>
-              <div className="success_dialog_wrapper">
-                Sucess
-              </div>
-            </div>
+        <div className="success_dialog_wrapper">Sucess</div>
+      </div>
     </div>
   );
 }
