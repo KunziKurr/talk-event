@@ -5,7 +5,7 @@ import { useFormik } from 'formik';
 import axios from 'axios';
 
 const io = require('socket.io-client');
-const socket = io.connect('http://localhost:3000');
+const socket = io.connect('https://talk-event.vercel.app/');
 const transformPhoneNumber = require('../lib/transformPhone');
 
 const baseURL = './api/user/';
@@ -62,6 +62,9 @@ function Countet() {
 export default function Landing() {
   // POPUP BOXES HIDE/SHOW
   const [isActive, setActive] = useState(false);
+  const [hideSpinner, setSpinner] = useState('hidden');
+  const [hideSucess, setSuccess] = useState('hidden');
+
   const [erros, setErrors] = useState({});
   const handleClick = () => {
     setActive(!isActive);
@@ -142,6 +145,7 @@ export default function Landing() {
   const [btntext, setBtnText] = useState('Make Payment');
   const pushStk = async (e) => {
     setBtnText('Processing, please wait...');
+    setSpinner('active');
     e.preventDefault();
     console.log(formik);
     try {
@@ -167,6 +171,8 @@ export default function Landing() {
             setBtnText('Make Payment');
             if (respData.success) {
               // Notify client of success and close the modal;
+              setSpinner('hidden');
+              setSuccess('active');
             } else {
               // Notify client of failure and ask them to retry
             }
@@ -180,9 +186,16 @@ export default function Landing() {
         console.log(response);
       }
     } catch (error) {
-      console.log(error);
+      ;
     }
   };
+  const handleClose = (e) =>{
+    e.preventDefault();
+    setActiveClass(!hiddenClass);
+    setActive(!isActive);
+    setSpinner('hidden');
+  }
+  
 
   // POPUP BOXES HIDE/SHOW
   return (
@@ -264,6 +277,13 @@ export default function Landing() {
             </button>
           </div>
         </section>
+      </div>
+      <button onClick={handleClose} id={isActive ? 'danger' : 'hidden'} className="close">X</button>
+      <div className="loading_container" id={hideSpinner}>
+        <div className="loading_container_wrapper">
+          <span>Loading</span>
+        <div className="loader">Loading ...</div>
+        </div>
       </div>
       <div className="form_popup " id={isActive ? 'danger' : 'hidden'}>
         <div className="form_popup_container">
@@ -373,6 +393,7 @@ export default function Landing() {
                 Would you give us a chance to train YOU and/or YOUR Domestic
                 Manager to transform and sparkle up your space like pro ?
               </div>
+              
 
               <div
                 className="form_popup_container_wrapper_sub"
@@ -417,10 +438,17 @@ export default function Landing() {
                   </form>
                 </div>
               </div>
+            
             </div>
+            
           </div>
         </div>
       </div>
+      <div className="success_dialog" id={hideSucess}>
+              <div className="success_dialog_wrapper">
+                Sucess
+              </div>
+            </div>
     </div>
   );
 }
