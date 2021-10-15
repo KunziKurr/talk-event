@@ -5,10 +5,12 @@ import { useFormik } from 'formik';
 import axios from 'axios';
 
 const io = require('socket.io-client');
-const socket = io.connect('https://talk-event.vercel.app/');
+// const socket = io.connect('https://talk-event.vercel.app/');
+const socket = io.connect('http://localhost:3000/')
 const transformPhoneNumber = require('../lib/transformPhone');
 
 const baseURL = './api/user/';
+import curver from '../assets/curver.svg'
 
 function Countet() {
   const countDownDate = new Date('Oct 1, 2021 15:37:25').getTime();
@@ -201,24 +203,22 @@ export default function Landing() {
   return (
     <div>
       <div className="landing">
-        <section
-          className={`landing_seaction_1 ${isActive ? 'danger' : 'hidden'}`}
-        >
-          {/* <video autoPlay muted loop className="V">
-              <source src="../assets/video/Vid1.mp4" type="video/mp4"/>
-            </video> */}
-          <h1 className="landing_seaction_1_title">Cleaning Time !!</h1>
-          <span className="landing_seaction_1_span">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industrys standard dummy text
-            ever since the 1500s{' '}
-          </span>
+        <section className={`landing_seaction_1 ${isActive ? 'danger' : 'hidden'}`}>
           <div className="landing_seaction_1_sub_sect">
+        
             <div className="landing_seaction_1_sub_sect_wrapper">
+            <div className="landing_seaction_1_sub_sect_wrapper_liner">
+              <span className="landing_seaction_1_sub_sect_wrapper_liner_span"> Betty Events</span>
+            </div>
               <span className="landing_seaction_1_sub_sect_heading">
                 {' '}
                 How clean is your home ?
               </span>
+              <div> 
+
+
+
+              </div>
               <p className="landing_seaction_1_sub_sect_p">
                 Would you give us a chance to train YOU and/or YOUR Domestic
                 Manager to transform and sparkle up your space like pro ?{' '}
@@ -268,13 +268,13 @@ export default function Landing() {
             <p className="landing_section_2_wrapper_1_p">
               <Countet />
             </p>
-            <button
+            {/* <button
               className="landing_seaction_1_sub_sect_register"
               onClick={handleClick}
             >
               {' '}
               BOOK NOW
-            </button>
+            </button> */}
           </div>
         </section>
       </div>
@@ -288,7 +288,14 @@ export default function Landing() {
       <div className="form_popup " id={isActive ? 'danger' : 'hidden'}>
         <div className="form_popup_container">
           <div className="form_popup_container_wrapper">
-            <div className="form_popup_container_wrapper_side_1"></div>
+            <div className="form_popup_container_wrapper_side_1">
+              <Image 
+                src={curver}
+                height={2500}
+                width={2000}
+                className="form_popup_container_wrapper_side_1_img"
+              />
+            </div>
             <div className="form_popup_container_wrapper_side_2">
               <span className="form_popup_container_wrapper_side_2_hello">
                 Hello!

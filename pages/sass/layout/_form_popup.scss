@@ -19,9 +19,10 @@
         top: 50%;
         transform: translate(-50%, -50%);
         border-radius: 4rem;
+        overflow:hidden;
         &_wrapper {
             &_side_1 {
-                background-image: url('../assets/curver.svg');
+                // background-image: url('../assets/curver.svg');
                 height: 88vh;
                 width: 57%;
                 background-size: 100%;
@@ -30,6 +31,15 @@
                 background-position: -1rem -1rem;
                 z-index: -1000;
                 border-radius: 4rem;
+                &_img{
+                    top: 1rem !important;
+                    height: 100vh !important;
+                    max-height: 20vh !important;
+                    min-height: 100vh !important;
+                    min-width: 60vh !important;
+                    z-index: -1;
+                    left: -5rem !important;
+                }
             }
             &_side_2 {
                 width: 59%;
@@ -143,7 +153,7 @@
                     margin: 0 auto;
                     top: 45%;
                     transform: translate(-50%, -50%);
-                    height: 46vh;
+                    height: 40vh;
                     border-radius: 1rem;
                     &_h1 {
                         text-align: center;
@@ -170,8 +180,8 @@
                         margin: 3rem auto;
                     }
                     & .form_popup_container_wrapper_side_2_btn {
-                        position: absolute;
-                        top: 19rem;
+                        position: relative;
+                        top: 10rem;
                         left: 0;
                         right: 0;
                         margin: 0 auto;
