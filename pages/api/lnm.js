@@ -1,4 +1,6 @@
 import { format } from 'date-fns';
+const { connectToDatabase } = require('../../lib/mongodb');
+const ObjectId = require('mongodb').ObjectId;
 export default async function handler(req, res) {
   if (req.method === 'POST') {
     const phoneNumber = req.body.phone;
@@ -29,6 +31,17 @@ export default async function handler(req, res) {
       process.env.CONSUMER_KEY + process.env.CONSUMER_SECRET
     ).toString('base64');
     try {
+      let { db } = await connectToDatabase();
+      const exists = await db
+        .collection('users')
+        .find({ email: { $exists: true, $in: [req.body.email] } })
+        .toArray();
+      if (exists.length > 0) {
+        return res.status(401).json({
+          success: false,
+          message: `User with email ${req.body.email} already exists`,
+        });
+      }
       const basicAuthCredentials = Buffer.from(
         'Azs2KejU1ARvIL5JdJsARbV2gDrWmpOB:hipGvFJbOxri330c'
       ).toString('base64');
