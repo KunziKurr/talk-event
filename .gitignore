@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+/pages/sass/node_modules
 
 # testing
 /coverage

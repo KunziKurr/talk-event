@@ -11,9 +11,10 @@ const transformPhoneNumber = require('../lib/transformPhone');
 
 const baseURL = './api/user/';
 import curver from '../assets/curver.svg'
+var  countDownDateTo = new Date('Oct 28, 2021 15:37:25');
 
 function Countet() {
-  const countDownDate = new Date('Oct 1, 2021 15:37:25').getTime();
+  const countDownDate = new Date('Oct 28, 2021 15:37:25').getTime();
 
   var now = new Date().getTime();
   let difference = countDownDate - now;
@@ -35,10 +36,10 @@ function Countet() {
     setCount(seconds, minutes);
   }, 1000);
   return (
-    <h1>
-      {' '}
+    <p>
+     
       {days + ' days'} {hours + ' hrs'} {minutes + ' min'} {seconds + ' s'}{' '}
-    </h1>
+    </p>
   );
 
   function useInterval(callback, delay) {
@@ -232,6 +233,7 @@ export default function Landing() {
                 {' '}
                 Get Value for you money...{' '}
               </span>
+             
               <button
                 className="landing_seaction_1_sub_sect_register"
                 onClick={handleClick}
@@ -239,8 +241,15 @@ export default function Landing() {
                 {' '}
                 REGISTER NOW
               </button>
+             
             </div>
+          
+
           </div>
+          <div className="top_count">
+            <h6>Count dow</h6>
+              <Countet />
+            </div>
         </section>
         <section className="landing_section_2">
           <div className="landing_section_2_wrapper_1">
@@ -265,8 +274,8 @@ export default function Landing() {
           </div>
           <div className="landing_section_2_wrapper_1">
             <span className="landing_section_2_wrapper_1_heading">Date </span>
-            <p className="landing_section_2_wrapper_1_p">
-              <Countet />
+            <p className="landing_section_2_wrapper_1_p date">
+             Date 28th October 2021 10:00 A.M
             </p>
             {/* <button
               className="landing_seaction_1_sub_sect_register"
@@ -289,12 +298,12 @@ export default function Landing() {
         <div className="form_popup_container">
           <div className="form_popup_container_wrapper">
             <div className="form_popup_container_wrapper_side_1">
-              <Image 
+              {/* <Image 
                 src={curver}
                 height={2500}
                 width={2000}
                 className="form_popup_container_wrapper_side_1_img"
-              />
+              /> */}
             </div>
             <div className="form_popup_container_wrapper_side_2">
               <span className="form_popup_container_wrapper_side_2_hello">

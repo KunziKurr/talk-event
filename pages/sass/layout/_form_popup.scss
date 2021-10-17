@@ -19,10 +19,16 @@
         top: 50%;
         transform: translate(-50%, -50%);
         border-radius: 4rem;
-        overflow:hidden;
+        overflow: hidden;
+        @include respond-below(xs) {
+            overflow: scroll;
+            height: 80vh;
+            width: 95vw;
+            border-radius: 2rem;
+        }
         &_wrapper {
             &_side_1 {
-                // background-image: url('../assets/curver.svg');
+                background-image: url('../assets/curver.svg');
                 height: 88vh;
                 width: 57%;
                 background-size: 100%;
@@ -31,7 +37,11 @@
                 background-position: -1rem -1rem;
                 z-index: -1000;
                 border-radius: 4rem;
-                &_img{
+                overflow: hidden;
+                @include respond-below(xs) {
+                    display: none;
+                }
+                &_img {
                     top: 1rem !important;
                     height: 100vh !important;
                     max-height: 20vh !important;
@@ -47,6 +57,13 @@
                 height: 88vh;
                 border-top-right-radius: 4rem;
                 border-bottom-right-radius: 4rem;
+                @include respond-below(xs) {
+                    width: 100%;
+                    float: none;
+                    height: 100vh;
+                    border-top-right-radius: 2rem;
+                    border-bottom-right-radius: 2rem;
+                }
                 &_hello {
                     display: block;
                     margin: 1rem 8rem;
@@ -54,6 +71,10 @@
                     font-family: 'Montserrat-Regular';
                     color: #1d89bd;
                     font-weight: 700;
+                    @include respond-below(xs) {
+                        margin: 1rem auto;
+                        text-align: center;
+                    }
                     &1 {
                         display: block;
                         margin: 1rem 8rem;
@@ -61,16 +82,26 @@
                         font-family: 'Montserrat-Regular';
                         color: #1d89bd;
                         font-weight: 700;
+                        @include respond-below(xs) {
+                            margin: 1rem auto;
+                            text-align: center;
+                        }
                     }
                 }
                 &_form {
                     position: relative;
                     margin: 5rem 3.6rem;
                     width: 100%;
+                    @include respond-below(xs) {
+                        margin: 5rem auto;
+                    }
                     &_form_container {
                         position: relative;
                         display: inline-block;
                         width: 40%;
+                        @include respond-below(xs) {
+                            width: 90%;
+                        }
                     }
                 }
                 &_label {
@@ -80,6 +111,9 @@
                     font-weight: 600;
                     font-family: 'Montserrat-Regular';
                     color: #1d89bd;
+                    @include respond-below(xs) {
+                        margin: -0.3rem 2.4rem;
+                    }
                 }
                 &_input,
                 &_select {
@@ -92,6 +126,10 @@
                     outline: none;
                     color: #1d89bd;
                     font-size: 1.1rem;
+                    @include respond-below(xs) {
+                        margin: 2rem 2rem;
+                        padding: 0.95rem 1rem;
+                    }
                 }
                 & .first {
                     margin-left: -1.3rem;
@@ -109,6 +147,9 @@
                 &_select {
                     width: 95%;
                     margin: 2rem 1rem;
+                    @include respond-below(xs) {
+                        margin: 2rem 2rem;
+                    }
                 }
                 &_btn {
                     display: block;
@@ -130,6 +171,10 @@
                 color: #79797a;
                 width: 75%;
                 margin-left: 7rem;
+                @include respond-below(xs) {
+                    width: 80%;
+                    margin-left: 3rem;
+                }
             }
             &_sub {
                 position: fixed;
@@ -155,6 +200,10 @@
                     transform: translate(-50%, -50%);
                     height: 40vh;
                     border-radius: 1rem;
+                    @include respond-below(xs) {
+                        width: 100%;
+                        height: 47vh;
+                    }
                     &_h1 {
                         text-align: center;
                         margin-top: 1rem;
@@ -166,6 +215,12 @@
                         width: 75%;
                         text-align: center;
                         margin: 1.6rem auto;
+                        @include respond-below(xs) {
+                            width: 90%;
+                            text-align: center;
+                            margin: 1.6rem auto;
+                            font-size: 1.1rem;
+                        }
                     }
                     & .form_popup_container_wrapper_side_2_label {
                         position: absolute;
@@ -178,6 +233,9 @@
                         right: 0;
                         width: 60%;
                         margin: 3rem auto;
+                        @include respond-below(xs) {
+                            width: 80%;
+                        }
                     }
                     & .form_popup_container_wrapper_side_2_btn {
                         position: relative;
@@ -185,6 +243,9 @@
                         left: 0;
                         right: 0;
                         margin: 0 auto;
+                        @include respond-below(xs) {
+                            top: 8.6rem;
+                        }
                     }
                 }
             }
@@ -211,6 +272,10 @@
     cursor: pointer;
     color: #fff;
     padding: 4rem;
+    @include respond-below(xs) {
+        top: -3rem;
+        right: -2rem;
+    }
 }
 
 .loader,
