@@ -5,7 +5,7 @@ import { useFormik } from 'formik';
 import axios from 'axios';
 
 const io = require('socket.io-client');
-const socket = io.connect('http://localhost:3000');
+const socket = io.connect('http://localhost:3030');
 const transformPhoneNumber = require('../lib/transformPhone');
 
 const baseURL = './api/user/';
@@ -183,8 +183,11 @@ export default function Landing() {
         socket.on('TRANSACTION_STATUS', (message) => {
           console.log(message);
         });
-      } else {
+      } else if (response.status === 401) {
         console.log(response);
+        setSpinner('hidden');
+        setSuccess('hidden');
+        // Show message that user exists. {response.data.message}
       }
     } catch (error) {}
   };
@@ -198,7 +201,6 @@ export default function Landing() {
   // POPUP BOXES HIDE/SHOW
   return (
     <div>
-      <ToastContainer />
       <div className="landing">
         <section
           className={`landing_seaction_1 ${isActive ? 'danger' : 'hidden'}`}
