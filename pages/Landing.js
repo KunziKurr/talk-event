@@ -209,10 +209,10 @@ export default function Landing() {
         
             <div className="landing_seaction_1_sub_sect_wrapper">
             <div className="landing_seaction_1_sub_sect_wrapper_liner">
-              <span className="landing_seaction_1_sub_sect_wrapper_liner_span"> Betty Events</span>
+              <span className="landing_seaction_1_sub_sect_wrapper_liner_span"> Cleaning talk event </span>
             </div>
               <span className="landing_seaction_1_sub_sect_heading">
-                {' '}
+                {' '} 
                 How clean is your home ?
               </span>
               <div> 
@@ -460,11 +460,29 @@ export default function Landing() {
           </div>
         </div>
       </div>
-      <div className="success_dialog" id={hideSucess}>
+      <div className="success_dialog">
               <div className="success_dialog_wrapper">
-                Sucess
+                <div className="success_dialog_wrapper_sub_body">
+                    <span className="success_dialog_wrapper_sub_body"> Cleaning talk event </span>
+                    <div className="success_dialog_wrapper_sub_body_content"> 
+                      <svg className="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" /><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" /></svg>
+
+                    </div>
+                 </div>
               </div>
             </div>
     </div>
   );
 }
+
+
+{/* <svg  viewBox="0 0 87 87" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+			<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+					<g id="Group-2" transform="translate(2.000000, 2.000000)">
+						<circle id="Oval-2" stroke="rgba(252, 191, 191, .5)" stroke-width="4" cx="41.5" cy="41.5" r="41.5"></circle>
+						<circle  class="ui-error-circle" stroke="#F74444" stroke-width="4" cx="41.5" cy="41.5" r="41.5"></circle>
+							<path class="ui-error-line1" d="M22.244224,22 L60.4279902,60.1837662" id="Line" stroke="#F74444" stroke-width="3" stroke-linecap="square"></path>
+							<path class="ui-error-line2" d="M60.755776,21 L23.244224,59.8443492" id="Line" stroke="#F74444" stroke-width="3" stroke-linecap="square"></path>
+					</g>
+			</g>
+	</svg> */}
