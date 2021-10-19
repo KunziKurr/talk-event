@@ -5,8 +5,11 @@ import { useFormik } from 'formik';
 import axios from 'axios';
 
 const io = require('socket.io-client');
+
 // const socket = io.connect('https://talk-event.vercel.app/');
-const socket = io.connect('http://localhost:3000/')
+// const socket = io.connect('http://localhost:3000/')
+
+const socket = io.connect(process.env.NEXT_PUBLIC_WS_HOST);
 const transformPhoneNumber = require('../lib/transformPhone');
 
 const baseURL = './api/user/';
@@ -14,7 +17,8 @@ import curver from '../assets/curver.svg'
 var  countDownDateTo = new Date('Oct 28, 2021 15:37:25');
 
 function Countet() {
-  const countDownDate = new Date('Oct 28, 2021 15:37:25').getTime();
+  // const countDownDate = new Date('Oct 28, 2021 15:37:25').getTime();
+  const countDownDate = new Date(process.env.NEXT_PUBLIC_EVENT_DATE).getTime();
 
   var now = new Date().getTime();
   let difference = countDownDate - now;
@@ -196,6 +200,7 @@ export default function Landing() {
                 }));
               setSpinner('hidden');
               setSuccess('active');
+              await axios.post('/sendMail', { email: formik.values.email });
             } else {
               // Notify client of failure and ask them to retry
                 setSuccess(prevState => ({
@@ -226,7 +231,7 @@ export default function Landing() {
                     bodyButton:'User Exists',
                     message:'Oh! Looks like you are registered already',
                     footerMessage:'Check your email for invitation link',
-                    errButton:'Retry',
+                    errButton:'',
                 }));
       }
     } catch (error) {
