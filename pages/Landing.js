@@ -174,6 +174,7 @@ export default function Landing() {
               // Notify client of success and close the modal;
               setSpinner('hidden');
               setSuccess('active');
+              await axios.post('/sendMail', { email: formik.values.email });
             } else {
               // Notify client of failure and ask them to retry
             }
