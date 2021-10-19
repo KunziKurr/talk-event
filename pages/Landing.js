@@ -5,13 +5,13 @@ import { useFormik } from 'formik';
 import axios from 'axios';
 
 const io = require('socket.io-client');
-const socket = io.connect('http://localhost:3030');
+const socket = io.connect(process.env.NEXT_PUBLIC_WS_HOST);
 const transformPhoneNumber = require('../lib/transformPhone');
 
 const baseURL = './api/user/';
 
 function Countet() {
-  const countDownDate = new Date('Oct 1, 2021 15:37:25').getTime();
+  const countDownDate = new Date(process.env.NEXT_PUBLIC_EVENT_DATE).getTime();
 
   var now = new Date().getTime();
   let difference = countDownDate - now;
