@@ -230,26 +230,29 @@
 .success-animation { margin:150px auto;}
 
 .checkmark {
-    width: 100px;
-    height: 100px;
+    width: 13vh;
+    height: 10vw;
     border-radius: 50%;
     display: block;
     stroke-width: 2;
-    stroke: #4bb71b;
+    stroke: #1aa67d;
     stroke-miterlimit: 10;
+    -webkit-box-shadow: inset 0px 0px 0px #4bb71b;
     box-shadow: inset 0px 0px 0px #4bb71b;
-    animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
-    position:relative;
-    top: 5px;
+    -webkit-animation: fill .4s ease-in-out .4s forwards,scale .3s ease-in-out .9s both;
+    animation: fill .4s ease-in-out .4s forwards,scale .3s ease-in-out .9s both;
+    position: relative;
+    top: 2rem;
     right: 5px;
-   margin: 0 auto;
+    margin: 0 auto;
+    margin-bottom: 4rem;
 }
 .checkmark__circle {
     stroke-dasharray: 166;
     stroke-dashoffset: 166;
     stroke-width: 2;
     stroke-miterlimit: 10;
-    stroke: #4bb71b;
+    stroke: #3ddfb0;
     fill: #fff;
     animation: stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
  
@@ -282,4 +285,47 @@
     100% {
         box-shadow: inset 0px 0px 0px 30px #4bb71b;
     }
+}
+// ERROR
+.ui-error{
+	&-circle{
+		stroke-dasharray:260.75219024795285px, 260.75219024795285px;
+		stroke-dashoffset: 260.75219024795285px;
+		animation: ani-error-circle 1.2s linear;
+	}
+	&-line1{
+		stroke-dasharray: 54px 55px;
+		stroke-dashoffset: 55px;
+		stroke-linecap: round;
+		animation: ani-error-line .15s 1.2s linear both;
+	}
+	&-line2{
+		stroke-dasharray: 54px 55px;
+		stroke-dashoffset: 55px;
+		stroke-linecap: round;
+		animation: ani-error-line .2s .9s linear both;
+	}
+}
+
+@keyframes ani-error-line{
+	to { stroke-dashoffset: 0; }
+}
+
+ @keyframes ani-error-circle {
+		0% {
+				stroke-dasharray: 0, 260.75219024795285px;
+				stroke-dashoffset: 0;
+		}
+		35% {
+				stroke-dasharray: 120px, 120px;
+				stroke-dashoffset: -120px;
+		}
+		70% {
+				stroke-dasharray: 0, 260.75219024795285px;
+				stroke-dashoffset: -260.75219024795285px;
+		}
+		100% {
+				stroke-dasharray: 260.75219024795285px, 0;
+				stroke-dashoffset: -260.75219024795285px;
+		}
 }

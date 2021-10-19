@@ -66,12 +66,25 @@ export default function Landing() {
   // POPUP BOXES HIDE/SHOW
   const [isActive, setActive] = useState(false);
   const [hideSpinner, setSpinner] = useState('hidden');
-  const [hideSucess, setSuccess] = useState('hidden');
+  const [hideSucess, setSuccess] = useState({
+    isOpen:false,
+    className:'',
+    okButton:'',
+    errButton:'',
+    message:'',
+    bodyButton:'',
+    footerMessage:''
+  });
 
   const [erros, setErrors] = useState({});
   const handleClick = () => {
     setActive(!isActive);
+ 
+
+
+
   };
+  // console.log(hideSucess.isOpen)
   const [hiddenClass, setActiveClass] = useState(false);
 
   // POPUP BOXES HIDE/SHOW
@@ -154,6 +167,7 @@ export default function Landing() {
     try {
       const response = await axios.post('/api/lnm', {
         phone: transformPhoneNumber(formik.values.phone_number),
+        email: formik.values.email,
       });
       if (response.status === 200) {
         socket.on('CONNECTION_STATUS', (message) => {
@@ -174,10 +188,29 @@ export default function Landing() {
             setBtnText('Make Payment');
             if (respData.success) {
               // Notify client of success and close the modal;
+                setSuccess(prevState => ({
+                  ...prevState,
+                    isOpen:true,
+                    className:'success',
+                    okButton:'',
+                    bodyButton:'Aweseome',
+                    message:'Congratualations. Payment Success',
+                    footerMessage:'Thank you. A link has been sent to your email.',
+                    okButton:'OK',
+                }));
               setSpinner('hidden');
               setSuccess('active');
             } else {
               // Notify client of failure and ask them to retry
+                setSuccess(prevState => ({
+                  ...prevState,
+                    isOpen:true,
+                    className:'error',
+                    bodyButton:'Failed',
+                    message:'Ohw Snap!, Something went wrong from our side here.',
+                    footerMessage:'Your request was not  completed. click retry',
+                    errButton:'Retry',
+                }));
             }
           }
         );
@@ -185,20 +218,45 @@ export default function Landing() {
         socket.on('TRANSACTION_STATUS', (message) => {
           console.log(message);
         });
-      } else {
+      } else if (response.status === 401) {
         console.log(response);
+        setSpinner('hidden');
+        setSuccess('hidden');
+        // Show message that user exists. {response.data.message}
+           setSuccess(prevState => ({
+                  ...prevState,
+                    isOpen:true,
+                    className:'error',
+                    bodyButton:'User Exists',
+                    message:'Oh! Looks like you are registered already',
+                    footerMessage:'Check your email for invitation link',
+                    errButton:'Retry',
+                }));
       }
-    } catch (error) {
-      ;
-    }
+    } catch (error) {}
   };
-  const handleClose = (e) =>{
+  const handleClose = (e) => {
     e.preventDefault();
     setActiveClass(!hiddenClass);
     setActive(!isActive);
     setSpinner('hidden');
-  }
-  
+  };
+
+  // if(hideSpinner == 'active'){
+  //   setTimeout(() => {
+  //   setSpinner('hidden');
+  //      setSuccess(prevState => ({
+  //                 ...prevState,
+  //                    isOpen:true,
+  //                   className:'error',
+  //                   okButton:'Retry',
+  //                   bodyButton:'Timeout Error',
+  //                   message:'Ohw Snap!, Something went wrong from our side here.',
+  //                   footerMessage:'Your request was not  completed. click retry',
+  //                   errButton:'Retry',
+  //               }));
+  //   }, 6000);
+  // }
 
   // POPUP BOXES HIDE/SHOW
   return (
@@ -287,11 +345,17 @@ export default function Landing() {
           </div>
         </section>
       </div>
-      <button onClick={handleClose} id={isActive ? 'danger' : 'hidden'} className="close">X</button>
+      <button
+        onClick={handleClose}
+        id={isActive ? 'danger' : 'hidden'}
+        className="close"
+      >
+        X
+      </button>
       <div className="loading_container" id={hideSpinner}>
         <div className="loading_container_wrapper">
           <span>Loading</span>
-        <div className="loader">Loading ...</div>
+          <div className="loader">Loading ...</div>
         </div>
       </div>
       <div className="form_popup " id={isActive ? 'danger' : 'hidden'}>
@@ -409,7 +473,6 @@ export default function Landing() {
                 Would you give us a chance to train YOU and/or YOUR Domestic
                 Manager to transform and sparkle up your space like pro ?
               </div>
-              
 
               <div
                 className="form_popup_container_wrapper_sub"
@@ -454,35 +517,54 @@ export default function Landing() {
                   </form>
                 </div>
               </div>
-            
             </div>
-            
           </div>
         </div>
       </div>
-      <div className="success_dialog">
+      <div className={`success_dialog ${hideSucess.className}`} id={hideSucess.isOpen ? 'show': 'hidden'} >
               <div className="success_dialog_wrapper">
                 <div className="success_dialog_wrapper_sub_body">
-                    <span className="success_dialog_wrapper_sub_body"> Cleaning talk event </span>
+                    <span className="success_dialog_wrapper_sub_body_heading"> Cleaning talk event </span>
                     <div className="success_dialog_wrapper_sub_body_content"> 
-                      <svg className="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" /><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" /></svg>
+                    {hideSucess.className == "success" ? (
+                      <svg className="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle className="checkmark__circle" cx="26" cy="26" r="25" fill="none" /><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" /></svg>
+                    ):(
+                       
+                       <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 87 87" version="1.1" className="svg_err">
+                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="Group-2" transform="translate(2.000000, 2.000000)">
+                              <circle id="Oval-2" stroke="rgba(252, 191, 191, .5)" stroke-width="4" cx="41.5" cy="41.5" r="41.5"></circle>
+                              <circle  class="ui-error-circle" stroke="#F74444" stroke-width="4" cx="41.5" cy="41.5" r="41.5"></circle>
+                                <path class="ui-error-line1" d="M22.244224,22 L60.4279902,60.1837662" id="Line" stroke="#F74444" stroke-width="3" stroke-linecap="square"></path>
+                                <path class="ui-error-line2" d="M60.755776,21 L23.244224,59.8443492" id="Line" stroke="#F74444" stroke-width="3" stroke-linecap="square"></path>
+                            </g>
+                        </g>
+                    </svg> 
+                    )}
+                    <button className="success_dialog_wrapper_sub_body_content_body_btn"> {hideSucess.bodyButton} </button>
+                    
+                     <p> {hideSucess.message} </p> 
+
+
 
                     </div>
+                     
                  </div>
+                
+                  
               </div>
+               <div className="success_dialog_wrapper_sub_body_footer"> 
+                      <p> {hideSucess.footerMessage} </p> 
+
+                    <button className="success_dialog_wrapper_sub_body_footer_btn success">  {hideSucess.okButton} </button>
+                    <button className="success_dialog_wrapper_sub_body_footer_btn error">  {hideSucess.errButton} </button>
+
+                      
+                 </div>
+             
+             
             </div>
     </div>
   );
 }
 
-
-{/* <svg  viewBox="0 0 87 87" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-			<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-					<g id="Group-2" transform="translate(2.000000, 2.000000)">
-						<circle id="Oval-2" stroke="rgba(252, 191, 191, .5)" stroke-width="4" cx="41.5" cy="41.5" r="41.5"></circle>
-						<circle  class="ui-error-circle" stroke="#F74444" stroke-width="4" cx="41.5" cy="41.5" r="41.5"></circle>
-							<path class="ui-error-line1" d="M22.244224,22 L60.4279902,60.1837662" id="Line" stroke="#F74444" stroke-width="3" stroke-linecap="square"></path>
-							<path class="ui-error-line2" d="M60.755776,21 L23.244224,59.8443492" id="Line" stroke="#F74444" stroke-width="3" stroke-linecap="square"></path>
-					</g>
-			</g>
-	</svg> */}
