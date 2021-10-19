@@ -5,12 +5,19 @@ import { useFormik } from 'formik';
 import axios from 'axios';
 
 const io = require('socket.io-client');
+
+// const socket = io.connect('https://talk-event.vercel.app/');
+// const socket = io.connect('http://localhost:3000/')
+
 const socket = io.connect(process.env.NEXT_PUBLIC_WS_HOST);
 const transformPhoneNumber = require('../lib/transformPhone');
 
 const baseURL = './api/user/';
+import curver from '../assets/curver.svg'
+var  countDownDateTo = new Date('Oct 28, 2021 15:37:25');
 
 function Countet() {
+  // const countDownDate = new Date('Oct 28, 2021 15:37:25').getTime();
   const countDownDate = new Date(process.env.NEXT_PUBLIC_EVENT_DATE).getTime();
 
   var now = new Date().getTime();
@@ -33,10 +40,10 @@ function Countet() {
     setCount(seconds, minutes);
   }, 1000);
   return (
-    <h1>
-      {' '}
-      {days + ' days'} {hours + ' hrs'} {minutes + ' min'} {seconds + ' s'}{' '}
-    </h1>
+    <p>
+     
+      {days + ' days'} {hours + ' hrs'} {minutes + ' min'} {seconds + ' s'}
+    </p>
   );
 
   function useInterval(callback, delay) {
@@ -63,12 +70,21 @@ export default function Landing() {
   // POPUP BOXES HIDE/SHOW
   const [isActive, setActive] = useState(false);
   const [hideSpinner, setSpinner] = useState('hidden');
-  const [hideSucess, setSuccess] = useState('hidden');
+  const [hideSucess, setSuccess] = useState({
+    isOpen:false,
+    className:'success',
+    okButton:'',
+    errButton:'',
+    message:'',
+    bodyButton:'',
+    footerMessage:''
+  });
 
   const [erros, setErrors] = useState({});
   const handleClick = () => {
     setActive(!isActive);
   };
+  // console.log(hideSucess.isOpen)
   const [hiddenClass, setActiveClass] = useState(false);
 
   // POPUP BOXES HIDE/SHOW
@@ -166,17 +182,36 @@ export default function Landing() {
               ...formik.values,
               phone_number: transformPhoneNumber(formik.values.phone_number),
               transactionReceipt: data.receiptNumber[0].Value,
-            });
+            }, {timeout:1});
 
             const respData = registerResponse.data;
             setBtnText('Make Payment');
             if (respData.success) {
               // Notify client of success and close the modal;
+                setSuccess(prevState => ({
+                  ...prevState,
+                    isOpen:true,
+                    className:'success',
+                    okButton:'',
+                    bodyButton:'Aweseome',
+                    message:'Congratualations. Payment Success',
+                    footerMessage:'Thank you. A link has been sent to your email.',
+                    okButton:'OK',
+                }));
               setSpinner('hidden');
               setSuccess('active');
               await axios.post('/sendMail', { email: formik.values.email });
             } else {
               // Notify client of failure and ask them to retry
+                setSuccess(prevState => ({
+                  ...prevState,
+                    isOpen:true,
+                    className:'error',
+                    bodyButton:'Failed',
+                    message:'Ohw Snap!, Something went wrong from our side here.',
+                    footerMessage:'Your request was not  completed. click retry',
+                    errButton:'Retry',
+                }));
             }
           }
         );
@@ -189,8 +224,29 @@ export default function Landing() {
         setSpinner('hidden');
         setSuccess('hidden');
         // Show message that user exists. {response.data.message}
+           setSuccess(prevState => ({
+                  ...prevState,
+                    isOpen:true,
+                    className:'error',
+                    bodyButton:'User Exists',
+                    message:'Oh! Looks like you are registered already',
+                    footerMessage:'Check your email for invitation link',
+                    errButton:'',
+                }));
       }
-    } catch (error) {}
+    } catch (error) {
+          setSpinner('hidden');
+       setSuccess(prevState => ({
+                  ...prevState,
+                     isOpen:true,
+                    className:'error',
+                    okButton:'Retry',
+                    bodyButton:'Timeout Error',
+                    message:'Ohw Snap!, Something went wrong from our side here.',
+                    footerMessage:'Your request was not  completed. click retry',
+                    errButton:'Retry',
+                }));
+    }
   };
   const handleClose = (e) => {
     e.preventDefault();
@@ -199,28 +255,27 @@ export default function Landing() {
     setSpinner('hidden');
   };
 
+
   // POPUP BOXES HIDE/SHOW
   return (
     <div>
       <div className="landing">
-        <section
-          className={`landing_seaction_1 ${isActive ? 'danger' : 'hidden'}`}
-        >
-          {/* <video autoPlay muted loop className="V">
-              <source src="../assets/video/Vid1.mp4" type="video/mp4"/>
-            </video> */}
-          <h1 className="landing_seaction_1_title">Cleaning Time !!</h1>
-          <span className="landing_seaction_1_span">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industrys standard dummy text
-            ever since the 1500s{' '}
-          </span>
+        <section className={`landing_seaction_1 ${isActive ? 'danger' : 'hidden'}`}>
           <div className="landing_seaction_1_sub_sect">
+        
             <div className="landing_seaction_1_sub_sect_wrapper">
+            <div className="landing_seaction_1_sub_sect_wrapper_liner">
+              <span className="landing_seaction_1_sub_sect_wrapper_liner_span"> Cleaning talk event </span>
+            </div>
               <span className="landing_seaction_1_sub_sect_heading">
-                {' '}
+                {' '} 
                 How clean is your home ?
               </span>
+              <div> 
+
+
+
+              </div>
               <p className="landing_seaction_1_sub_sect_p">
                 Would you give us a chance to train YOU and/or YOUR Domestic
                 Manager to transform and sparkle up your space like pro ?{' '}
@@ -234,6 +289,7 @@ export default function Landing() {
                 {' '}
                 Get Value for you money...{' '}
               </span>
+             
               <button
                 className="landing_seaction_1_sub_sect_register"
                 onClick={handleClick}
@@ -241,8 +297,15 @@ export default function Landing() {
                 {' '}
                 REGISTER NOW
               </button>
+             
             </div>
+          
+
           </div>
+          <div className="top_count">
+            <h6>Count dow</h6>
+              <Countet />
+            </div>
         </section>
         <section className="landing_section_2">
           <div className="landing_section_2_wrapper_1">
@@ -267,16 +330,16 @@ export default function Landing() {
           </div>
           <div className="landing_section_2_wrapper_1">
             <span className="landing_section_2_wrapper_1_heading">Date </span>
-            <p className="landing_section_2_wrapper_1_p">
-              <Countet />
+            <p className="landing_section_2_wrapper_1_p date">
+             Date 28th October 2021 10:00 A.M
             </p>
-            <button
+            {/* <button
               className="landing_seaction_1_sub_sect_register"
               onClick={handleClick}
             >
               {' '}
               BOOK NOW
-            </button>
+            </button> */}
           </div>
         </section>
       </div>
@@ -296,7 +359,14 @@ export default function Landing() {
       <div className="form_popup " id={isActive ? 'danger' : 'hidden'}>
         <div className="form_popup_container">
           <div className="form_popup_container_wrapper">
-            <div className="form_popup_container_wrapper_side_1"></div>
+            <div className="form_popup_container_wrapper_side_1">
+              {/* <Image 
+                src={curver}
+                height={2500}
+                width={2000}
+                className="form_popup_container_wrapper_side_1_img"
+              /> */}
+            </div>
             <div className="form_popup_container_wrapper_side_2">
               <span className="form_popup_container_wrapper_side_2_hello">
                 Hello!
@@ -449,9 +519,50 @@ export default function Landing() {
           </div>
         </div>
       </div>
-      <div className="success_dialog" id={hideSucess}>
-        <div className="success_dialog_wrapper">Sucess</div>
-      </div>
+      <div className={`success_dialog ${hideSucess.className}`} id={hideSucess.isOpen ? 'show': 'hidden'} >
+              <div className="success_dialog_wrapper">
+                <div className="success_dialog_wrapper_sub_body">
+                    <span className="success_dialog_wrapper_sub_body_heading"> Cleaning talk event </span>
+                    <div className="success_dialog_wrapper_sub_body_content"> 
+                    {hideSucess.className == "success" ? (
+                      <svg className="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle className="checkmark__circle" cx="26" cy="26" r="25" fill="none" /><path className="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" /></svg>
+                    ):(
+                       
+                       <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 87 87" version="1.1" className="svg_err">
+                        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                            <g id="Group-2" transform="translate(2.000000, 2.000000)">
+                              <circle id="Oval-2" stroke="rgba(252, 191, 191, .5)" stroke-width="4" cx="41.5" cy="41.5" r="41.5"></circle>
+                              <circle  className="ui-error-circle" stroke="#F74444" stroke-width="4" cx="41.5" cy="41.5" r="41.5"></circle>
+                                <path className="ui-error-line1" d="M22.244224,22 L60.4279902,60.1837662" id="Line" stroke="#F74444" stroke-width="3" stroke-linecap="square"></path>
+                                <path className="ui-error-line2" d="M60.755776,21 L23.244224,59.8443492" id="Line" stroke="#F74444" stroke-width="3" stroke-linecap="square"></path>
+                            </g>
+                        </g>
+                    </svg> 
+                    )}
+                    <button className="success_dialog_wrapper_sub_body_content_body_btn"> {hideSucess.bodyButton} </button>
+                    
+                     <p> {hideSucess.message} </p> 
+
+
+
+                    </div>
+                     
+                 </div>
+                
+                  
+              </div>
+               <div className="success_dialog_wrapper_sub_body_footer"> 
+                      <p> {hideSucess.footerMessage} </p> 
+
+                    <button onClick={()=>{window.location.reload()}} className="success_dialog_wrapper_sub_body_footer_btn success">  {hideSucess.okButton} </button>
+                    <button onClick={()=>{window.location.reload()}} className="success_dialog_wrapper_sub_body_footer_btn error">  {hideSucess.errButton} </button>
+
+                      
+                 </div>
+             
+             
+            </div>
     </div>
   );
 }
+
