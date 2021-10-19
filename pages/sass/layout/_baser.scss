@@ -246,6 +246,10 @@
     right: 5px;
     margin: 0 auto;
     margin-bottom: 4rem;
+    @include respond-below(xs){
+        width: 16vh;
+        height: 30vw;
+    }
 }
 .checkmark__circle {
     stroke-dasharray: 166;

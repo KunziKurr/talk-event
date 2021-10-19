@@ -38,7 +38,7 @@ function Countet() {
   return (
     <p>
      
-      {days + ' days'} {hours + ' hrs'} {minutes + ' min'} {seconds + ' s'}{' '}
+      {days + ' days'} {hours + ' hrs'} {minutes + ' min'} {seconds + ' s'}
     </p>
   );
 
@@ -68,7 +68,7 @@ export default function Landing() {
   const [hideSpinner, setSpinner] = useState('hidden');
   const [hideSucess, setSuccess] = useState({
     isOpen:false,
-    className:'',
+    className:'success',
     okButton:'',
     errButton:'',
     message:'',
@@ -79,10 +79,6 @@ export default function Landing() {
   const [erros, setErrors] = useState({});
   const handleClick = () => {
     setActive(!isActive);
- 
-
-
-
   };
   // console.log(hideSucess.isOpen)
   const [hiddenClass, setActiveClass] = useState(false);
@@ -182,7 +178,7 @@ export default function Landing() {
               ...formik.values,
               phone_number: transformPhoneNumber(formik.values.phone_number),
               transactionReceipt: data.receiptNumber[0].Value,
-            });
+            }, {timeout:1});
 
             const respData = registerResponse.data;
             setBtnText('Make Payment');
@@ -233,7 +229,19 @@ export default function Landing() {
                     errButton:'Retry',
                 }));
       }
-    } catch (error) {}
+    } catch (error) {
+          setSpinner('hidden');
+       setSuccess(prevState => ({
+                  ...prevState,
+                     isOpen:true,
+                    className:'error',
+                    okButton:'Retry',
+                    bodyButton:'Timeout Error',
+                    message:'Ohw Snap!, Something went wrong from our side here.',
+                    footerMessage:'Your request was not  completed. click retry',
+                    errButton:'Retry',
+                }));
+    }
   };
   const handleClose = (e) => {
     e.preventDefault();
@@ -242,21 +250,6 @@ export default function Landing() {
     setSpinner('hidden');
   };
 
-  // if(hideSpinner == 'active'){
-  //   setTimeout(() => {
-  //   setSpinner('hidden');
-  //      setSuccess(prevState => ({
-  //                 ...prevState,
-  //                    isOpen:true,
-  //                   className:'error',
-  //                   okButton:'Retry',
-  //                   bodyButton:'Timeout Error',
-  //                   message:'Ohw Snap!, Something went wrong from our side here.',
-  //                   footerMessage:'Your request was not  completed. click retry',
-  //                   errButton:'Retry',
-  //               }));
-  //   }, 6000);
-  // }
 
   // POPUP BOXES HIDE/SHOW
   return (
@@ -527,16 +520,16 @@ export default function Landing() {
                     <span className="success_dialog_wrapper_sub_body_heading"> Cleaning talk event </span>
                     <div className="success_dialog_wrapper_sub_body_content"> 
                     {hideSucess.className == "success" ? (
-                      <svg className="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle className="checkmark__circle" cx="26" cy="26" r="25" fill="none" /><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" /></svg>
+                      <svg className="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle className="checkmark__circle" cx="26" cy="26" r="25" fill="none" /><path className="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" /></svg>
                     ):(
                        
                        <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 87 87" version="1.1" className="svg_err">
                         <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                             <g id="Group-2" transform="translate(2.000000, 2.000000)">
                               <circle id="Oval-2" stroke="rgba(252, 191, 191, .5)" stroke-width="4" cx="41.5" cy="41.5" r="41.5"></circle>
-                              <circle  class="ui-error-circle" stroke="#F74444" stroke-width="4" cx="41.5" cy="41.5" r="41.5"></circle>
-                                <path class="ui-error-line1" d="M22.244224,22 L60.4279902,60.1837662" id="Line" stroke="#F74444" stroke-width="3" stroke-linecap="square"></path>
-                                <path class="ui-error-line2" d="M60.755776,21 L23.244224,59.8443492" id="Line" stroke="#F74444" stroke-width="3" stroke-linecap="square"></path>
+                              <circle  className="ui-error-circle" stroke="#F74444" stroke-width="4" cx="41.5" cy="41.5" r="41.5"></circle>
+                                <path className="ui-error-line1" d="M22.244224,22 L60.4279902,60.1837662" id="Line" stroke="#F74444" stroke-width="3" stroke-linecap="square"></path>
+                                <path className="ui-error-line2" d="M60.755776,21 L23.244224,59.8443492" id="Line" stroke="#F74444" stroke-width="3" stroke-linecap="square"></path>
                             </g>
                         </g>
                     </svg> 
@@ -556,8 +549,8 @@ export default function Landing() {
                <div className="success_dialog_wrapper_sub_body_footer"> 
                       <p> {hideSucess.footerMessage} </p> 
 
-                    <button className="success_dialog_wrapper_sub_body_footer_btn success">  {hideSucess.okButton} </button>
-                    <button className="success_dialog_wrapper_sub_body_footer_btn error">  {hideSucess.errButton} </button>
+                    <button onClick={()=>{window.location.reload()}} className="success_dialog_wrapper_sub_body_footer_btn success">  {hideSucess.okButton} </button>
+                    <button onClick={()=>{window.location.reload()}} className="success_dialog_wrapper_sub_body_footer_btn error">  {hideSucess.errButton} </button>
 
                       
                  </div>
