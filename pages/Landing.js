@@ -10,7 +10,6 @@ const io = require('socket.io-client');
 // const socket = io.connect('http://localhost:3000/')
 
 const socket = io.connect(process.env.NEXT_PUBLIC_WS_HOST);
-console.log(process.env);
 const transformPhoneNumber = require('../lib/transformPhone');
 
 const baseURL = './api/user/';
@@ -330,7 +329,7 @@ export default function Landing() {
           <div className="landing_section_2_wrapper_1">
             <span className="landing_section_2_wrapper_1_heading">Date </span>
             <p className="landing_section_2_wrapper_1_p date">
-              Date 28th October 2021 10:00 A.M
+              {process.env.NEXT_PUBLIC_EVENT_DATE}
             </p>
             {/* <button
               className="landing_seaction_1_sub_sect_register"
