@@ -11,6 +11,7 @@ export default async function handler(req, res) {
         'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919' +
         timestamp
     ).toString('base64');
+    console.log(process.env.CALLBACK_URL);
     const payload = {
       BusinessShortCode: +shortCode,
       Password: password,

@@ -183,7 +183,7 @@ export default function Landing() {
                 phone_number: transformPhoneNumber(formik.values.phone_number),
                 transactionReceipt: data.receiptNumber[0].Value,
               },
-              { timeout: 1 }
+              { timeout: 30000 }
             );
 
             const respData = registerResponse.data;
