@@ -232,9 +232,13 @@ export default function Landing() {
         socket.on('TRANSACTION_STATUS', (message) => {
           console.log(message);
         });
-      } else if (response.status === 401) {
-        console.log(response);
-        setSpinner('hidden');
+      }
+    } catch (error) {
+      console.log(error.response.data);
+      setSpinner('hidden');
+      setBtnText('Make Payment');
+
+      if (error.response.status === 401) {
         setSuccess('hidden');
         // Show message that user exists. {response.data.message}
         setSuccess((prevState) => ({
@@ -242,24 +246,22 @@ export default function Landing() {
           isOpen: true,
           className: 'error',
           bodyButton: 'User Exists',
-          message: 'Oh! Looks like you are registered already',
-          footerMessage: 'Check your email for invitation link',
-          errButton: '',
+          message: error.response.data.message,
+          footerMessage: 'Your request was not  completed. click retry',
+          errButton: 'Retry',
+        }));
+      } else {
+        setSuccess((prevState) => ({
+          ...prevState,
+          isOpen: true,
+          className: 'error',
+          okButton: 'Retry',
+          bodyButton: 'Timeout Error',
+          message: 'Ohw Snap!, Something went wrong from our side here.',
+          footerMessage: 'Your request was not  completed. click retry',
+          errButton: 'Retry',
         }));
       }
-    } catch (error) {
-      console.log(error);
-      setSpinner('hidden');
-      setSuccess((prevState) => ({
-        ...prevState,
-        isOpen: true,
-        className: 'error',
-        okButton: 'Retry',
-        bodyButton: 'Timeout Error',
-        message: 'Ohw Snap!, Something went wrong from our side here.',
-        footerMessage: 'Your request was not  completed. click retry',
-        errButton: 'Retry',
-      }));
     }
   };
   const handleClose = (e) => {
