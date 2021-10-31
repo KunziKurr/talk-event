@@ -6,9 +6,6 @@ import axios from 'axios';
 
 const io = require('socket.io-client');
 
-// const socket = io.connect('https://talk-event.vercel.app/');
-// const socket = io.connect('http://localhost:3000/')
-
 const socket = io.connect(process.env.NEXT_PUBLIC_WS_HOST);
 const transformPhoneNumber = require('../lib/transformPhone');
 
@@ -167,7 +164,25 @@ export default function Landing() {
         phone: transformPhoneNumber(formik.values.phone_number),
         email: formik.values.email,
       });
+      console.log(response);
       if (response.status === 200) {
+        if (
+          typeof response.data.errorMessage !== 'undefined' &&
+          response.data.errorMessage.length > 0
+        ) {
+          setBtnText('Make Payment');
+          setSpinner('hidden');
+          setSuccess((prevState) => ({
+            ...prevState,
+            isOpen: true,
+            className: 'error',
+            bodyButton: 'Failed',
+            message: 'Ohw Snap!, Something went wrong from our side here.',
+            footerMessage: 'Your request was not  completed. click retry',
+            errButton: 'Retry',
+          }));
+          return;
+        }
         socket.on('CONNECTION_STATUS', (message) => {
           console.log(message);
         });
@@ -176,15 +191,11 @@ export default function Landing() {
           transformPhoneNumber(formik.values.phone_number),
           async (data) => {
             console.log(data);
-            const registerResponse = await axios.post(
-              '/api/user',
-              {
-                ...formik.values,
-                phone_number: transformPhoneNumber(formik.values.phone_number),
-                transactionReceipt: data.receiptNumber[0].Value,
-              },
-              { timeout: 30000 }
-            );
+            const registerResponse = await axios.post('/api/user', {
+              ...formik.values,
+              phone_number: transformPhoneNumber(formik.values.phone_number),
+              transactionReceipt: data.receiptNumber[0].Value,
+            });
 
             const respData = registerResponse.data;
             setBtnText('Make Payment');
@@ -237,6 +248,7 @@ export default function Landing() {
         }));
       }
     } catch (error) {
+      console.log(error);
       setSpinner('hidden');
       setSuccess((prevState) => ({
         ...prevState,
