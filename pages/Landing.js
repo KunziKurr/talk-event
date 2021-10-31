@@ -205,14 +205,12 @@ export default function Landing() {
                 ...prevState,
                 isOpen: true,
                 className: 'success',
-                okButton: '',
                 bodyButton: 'Aweseome',
-                message: 'Congratualations. Payment Success',
+                message: 'Congratulations. Payment Success',
                 footerMessage: 'Thank you. A link has been sent to your email.',
                 okButton: 'OK',
               }));
               setSpinner('hidden');
-              setSuccess('active');
               await axios.post('/sendMail', { email: formik.values.email });
             } else {
               // Notify client of failure and ask them to retry
