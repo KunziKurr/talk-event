@@ -76,7 +76,13 @@ export default function Landing() {
     footerMessage: '',
   });
 
-  const [erros, setErrors] = useState({});
+  const handleSuccessClose = () => {
+    setSuccess((prevState) => ({
+      ...prevState,
+      isOpen: false,
+    }));
+  };
+
   const handleClick = () => {
     setActive(!isActive);
   };
@@ -205,7 +211,7 @@ export default function Landing() {
                 ...prevState,
                 isOpen: true,
                 className: 'success',
-                bodyButton: 'Aweseome',
+                bodyButton: 'Success',
                 message: 'Congratulations. Payment Success',
                 footerMessage: 'Thank you. A link has been sent to your email.',
                 okButton: 'OK',
@@ -534,6 +540,9 @@ export default function Landing() {
         id={hideSucess.isOpen ? 'show' : 'hidden'}
       >
         <div className="success_dialog_wrapper">
+          <button className="cancel_btn" onClick={handleSuccessClose}>
+            X
+          </button>
           <div className="success_dialog_wrapper_sub_body">
             <span className="success_dialog_wrapper_sub_body_heading">
               {' '}
