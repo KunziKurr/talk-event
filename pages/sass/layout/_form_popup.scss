@@ -372,7 +372,7 @@
 
 .success_dialog {
     background-color: #fff;
-    height: 50vh;
+    height: 60vh;   
     width: 25vw;
     position: absolute;
     top: 48%;
@@ -392,7 +392,7 @@
     }
     &_wrapper{
         &_sub_body{
-            height: 33vh;
+            height: 42vh;
             position: absolute;
             top: 0;
             left: 0;
@@ -417,6 +417,7 @@
                 color: #fff;
                 font-size: 1.4rem;
                 display: block;
+                text-align: center;
                 @include respond-below(xs){
                     padding: 0rem 2rem;
                     text-align: center;
@@ -498,5 +499,7 @@
     width: 20vh;
     height: 13vh;
     display: block;
-    margin: 1rem auto;
+    margin: 3rem auto;
+    top: 1rem;
+    position: relative;
 }

@@ -443,7 +443,7 @@ export default function Landing() {
                     <div className="form_error"> {formik.errors.email}</div>
                   ) : null}
                 </div>
-                <div className="form_popup_container_wrapper_side_2_form_form_container">
+                {/* <div className="form_popup_container_wrapper_side_2_form_form_container">
                   <label className="form_popup_container_wrapper_side_2_label">
                     Gender
                   </label>
@@ -452,8 +452,7 @@ export default function Landing() {
                     <option value="">Male</option>
                     <option value="female">Female</option>
                   </select>
-                </div>
-                <br></br>
+                </div> */}
                 <div className="form_popup_container_wrapper_side_2_form_form_container">
                   <label className="form_popup_container_wrapper_side_2_label ladst">
                     Phone Number
